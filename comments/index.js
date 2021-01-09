@@ -26,7 +26,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   commentsByPostId[req.params.id] = comments;
 
   //emit an event to the event_bus
-  await axios.post("http://localhost:4005/events", {
+  await axios.post("http://event-bus-srv:4005/events", {
     type: "CommentCreated",
     data: {
       id: commentId,
@@ -57,7 +57,7 @@ app.post("/events", async (req, res) => {
     comment.status = status; //since this is an object we dont need to re-insert it inside the commentsByPostId it will refect
 
     //emit and comment updated
-    await axios.post("http://localhost:4005/events", {
+    await axios.post("http://event-bus-srv:4005/events", {
       type: "CommentUpdated",
       data: {
         id,

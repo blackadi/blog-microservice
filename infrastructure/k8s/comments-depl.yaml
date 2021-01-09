@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comments-depol
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comments
+  template:
+    metadata:
+      labels:
+        app: comments
+    spec:
+      containers:
+        - name: comments
+          image: blackadi2019/comments
+#to create multiple objects inside one yaml file we add "---"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-srv
+spec:
+  selector:
+    app: comments
+  #type: ClusterIP # This is optional since ks8 will by default create ClusterIP service type
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 4001
+      targetPort: 4001

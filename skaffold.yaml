@@ -1,0 +1,58 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infrastructure/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: blackadi2019/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js" #inside our client folder if anything change inside any .js files then copy that file into the pod
+            dest: .
+    - image: blackadi2019/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js" #inside our comments folder if anything change inside any .js files then copy that file into the pod
+            dest: .
+    - image: blackadi2019/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js" #inside our comments folder if anything change inside any .js files then copy that file into the pod
+            dest: .
+    - image: blackadi2019/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js" #inside our comments folder if anything change inside any .js files then copy that file into the pod
+            dest: .
+    - image: blackadi2019/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js" #inside our comments folder if anything change inside any .js files then copy that file into the pod
+            dest: .
+    - image: blackadi2019/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js" #inside our comments folder if anything change inside any .js files then copy that file into the pod
+            dest: .

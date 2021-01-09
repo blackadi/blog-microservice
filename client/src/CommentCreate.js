@@ -7,7 +7,8 @@ const CommentCreate = ({ postId }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+    //Im connecting to ks8 using ngix-ingress srv, CHANGE THIS TO localhost:4001 if you are not using ks8
+    await axios.post(`http://posts.com/posts/${postId}/comments`, {
       content,
     });
 

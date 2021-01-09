@@ -10,11 +10,13 @@ app.use(cors());
 
 const posts = {}; //act as a database for now to store all posts since this is a demo app
 
-app.get("/posts", (req, res) => {
-  res.send(posts); //send back all the post that have been created
-});
+//Qeury service is handling this NOW
+// app.get("/posts", (req, res) => {
+//   res.send(posts); //send back all the post that have been created
+// });
 
-app.post("/posts", async (req, res) => {
+//Im using ks8 here, CHANGE THIS TO /posts to run with localhost instead
+app.post("/posts/create", async (req, res) => {
   //create a new post
 
   const id = randomBytes(4).toString("hex"); //generate 4 bytes of random data in hex
@@ -26,7 +28,8 @@ app.post("/posts", async (req, res) => {
   };
 
   //register an event with our broker
-  await axios.post("http://localhost:4005/events", {
+  //Here im using ks8 pod address direct the trafic you can change to localhost if you don't want ks8
+  await axios.post("http://event-bus-srv:4005/events", {
     type: "PostCreated",
     data: {
       id,
@@ -44,5 +47,6 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4000, () => {
+  console.log("apply ks8!");
   console.log("Listening on 4000");
 });

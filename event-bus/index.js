@@ -16,10 +16,11 @@ app.post("/events", (req, res) => {
 
   events.push(event);
 
-  axios.post("http://localhost:4000/events", event); //send a copy to the post service
-  axios.post("http://localhost:4001/events", event); //send a copy to the comment service
-  axios.post("http://localhost:4002/events", event); //send a copy to the qeury service
-  axios.post("http://localhost:4003/events", event); //send a copy to the moderation service
+  //Here im using ks8 pod address direct the trafic you can change to localhost if you don't want ks8
+  axios.post("http://posts-clusterip-srv:4000/events", event); //send a copy to the post service
+  axios.post("http://comments-srv:4001/events", event); //send a copy to the comment service
+  axios.post("http://query-srv:4002/events", event); //send a copy to the qeury service
+  axios.post("http://moderation-srv:4003/events", event); //send a copy to the moderation service
 
   res.send({ status: "OK" });
 });
