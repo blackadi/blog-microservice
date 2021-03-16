@@ -7,8 +7,8 @@ const PostCreate = () => {
   const onSubmit = async (event) => {
     event.preventDefault(); //prevent the from from submitting itself directly we will handle this callback
 
-    //Im connecting to ks8 using ngix-ingress srv, CHANGE THIS TO localhost:4000 if you are not using ks8
-    // Since ngix-ingress does not understand http call methods [POST, GET], I created /create path for post request, CHANGE THIS TO /post if running as a localhost
+    // K8s is being used with nginx-ingress srv, CHANGE THIS TO localhost:4000 otherwise
+    // Since nginx-ingress does not understand http methods [POST, GET], adding a new path as a workaround as follow {/posts/create} for the post request, CHANGE THIS TO {/posts} otherwise.
     await axios.post("http://posts.com/posts/create", {
       title,
     });
