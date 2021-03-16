@@ -7,7 +7,7 @@ const PostList = () => {
   const [posts, setPosts] = useState({});
 
   const fetchPosts = async () => {
-    //Im connecting to ks8 using ngix-ingress srv, CHANGE THIS TO localhost:4002 if you are not using ks8
+    // K8s is being used with ngix-ingress srv, CHANGE THIS TO localhost:4002 otherwise
     const res = await axios.get("http://posts.com/posts");
 
     setPosts(res.data);
