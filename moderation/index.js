@@ -17,6 +17,7 @@ app.post("/events", async (req, res) => {
     const status = data.content.includes("orange") ? "rejected" : "approved";
 
     //emit comment moderated status to the event_broker
+    // K8s is being used with nginx-ingress srv, pod will handle the request here. CHANGE THIS TO {localhost} otherwise.
     await axios.post("http://event-bus-srv:4005/events", {
       type: "CommentModerated",
       data: {
