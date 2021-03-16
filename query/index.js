@@ -53,8 +53,8 @@ app.post("/events", (req, res) => {
 app.listen(4002, async () => {
   console.log("Listening on 4002");
 
-  //If the service went down, then fetch all the event from the broker to sync with other services
-  //K8s is being used here, CHANGE THIS TO localhost otherwise
+  // If the service went down, then fetch all the event from the broker to sync with other services
+  // K8s is being used with nginx-ingress srv, pod will handle the request here. CHANGE THIS TO {localhost} otherwise.
   const res = await axios.get("http://event-bus-srv:4005/events");
 
   for (let event of res.data) {
