@@ -28,7 +28,7 @@ app.post("/posts/create", async (req, res) => {
   };
 
   // Register an event with our broker
-  // Here im using K8s pods for making requests, you can change this to localhost if you don't want to use K8s
+  // K8s is being used with nginx-ingress srv, pod will handle the request here. CHANGE THIS TO {localhost} otherwise.
   await axios.post("http://event-bus-srv:4005/events", {
     type: "PostCreated",
     data: {
