@@ -1,5 +1,5 @@
-// This service is responsable for providign a compelete list of all posts and coresponding comments
-// Here we only need to request from one service which means if the post or comment services whent down this will still have a copy of all the posts and comments and the end user will not be affected
+// This service is responsable for providing a compelete list of all the posts and coresponding comments
+// Here we only need to request from one service, which means if the post or comment services went-down, this service will have a local copy of all the posts and comments requested, and the end user will not be affected
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -53,7 +53,8 @@ app.post("/events", (req, res) => {
 app.listen(4002, async () => {
   console.log("Listening on 4002");
 
-  //If the service went down then fetch all the event from the broker to sync with other services
+  //If the service went down, then fetch all the event from the broker to sync with other services
+  //K8s is being used here, CHANGE THIS TO localhost otherwise
   const res = await axios.get("http://event-bus-srv:4005/events");
 
   for (let event of res.data) {
