@@ -15,7 +15,7 @@ const posts = {}; //act as a database for now to store all posts since this is a
 //   res.send(posts); //send back all the post that have been created
 // });
 
-//Im using ks8 here, CHANGE THIS TO /posts to run with localhost instead
+// K8s is being used here, CHANGE THIS TO {/posts} to run with localhost instead
 app.post("/posts/create", async (req, res) => {
   //create a new post
 
@@ -27,8 +27,8 @@ app.post("/posts/create", async (req, res) => {
     title,
   };
 
-  //register an event with our broker
-  //Here im using ks8 pod address direct the trafic you can change to localhost if you don't want ks8
+  // Register an event with our broker
+  // Here im using K8s pods for making requests, you can change this to localhost if you don't want to use K8s
   await axios.post("http://event-bus-srv:4005/events", {
     type: "PostCreated",
     data: {
