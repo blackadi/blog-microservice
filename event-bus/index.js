@@ -16,7 +16,7 @@ app.post("/events", (req, res) => {
 
   events.push(event);
 
-  //Here im using K8s pods for making requests you can change to localhost if you don't want K8s
+  // Here im using K8s pods for making requests you can change to localhost if you don't want K8s
   axios.post("http://posts-clusterip-srv:4000/events", event); //send a copy to the post service
   axios.post("http://comments-srv:4001/events", event); //send a copy to the comment service
   axios.post("http://query-srv:4002/events", event); //send a copy to the qeury service
