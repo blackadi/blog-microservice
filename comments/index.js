@@ -26,6 +26,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   commentsByPostId[req.params.id] = comments;
 
   //emit an event to the event_bus
+  // K8s is being used with nginx-ingress srv, pod will handle the request here. CHANGE THIS TO {localhost} otherwise.
   await axios.post("http://event-bus-srv:4005/events", {
     type: "CommentCreated",
     data: {
@@ -57,6 +58,7 @@ app.post("/events", async (req, res) => {
     comment.status = status; //since this is an object we dont need to re-insert it inside the commentsByPostId it will refect
 
     //emit and comment updated
+    // K8s is being used with nginx-ingress srv, pod will handle the request here. CHANGE THIS TO {localhost} otherwise.
     await axios.post("http://event-bus-srv:4005/events", {
       type: "CommentUpdated",
       data: {
